@@ -16,11 +16,16 @@ module.exports = function (defaultFuncs, api, ctx) {
 		}
 		// ── end sendTypingE2EE ────────────────────────────────────────────────────
 
-		const mqttClient = ctx.mqttClient || global.mqttClient;
-		if (!mqttClient) {
-			if (typeof callback === 'function') callback(new Error('No MQTT client available for typing indicator'));
-			return;
-		}
+const mqttClient = ctx.mqttClient || global.mqttClient;
+if (!mqttClient || !mqttClient.connected) {
+    const err = new Error(
+        !mqttClient
+            ? 'No MQTT client available for typing indicator'
+            : 'MQTT client is not connected (reconnecting?) — typing indicator not sent'
+    );
+    if (typeof callback === 'function') callback(err);
+    throw err;
+}
 
 		let count_req = 0;
 		var wsContent = {
