@@ -49,6 +49,7 @@
  *       3. AutoSeen Thread (on/off) — saved in globalData
  *       4. Story Reaction Auto (on/off) — saved in globalData
  *       5. Story Reaction Emoji — saved in globalData
+ *       6. Typing Indicator (on/off) — saved in config.json  ◄ NEW
  * ────────────────────────────────────────────────────
  */
 
@@ -282,8 +283,9 @@ module.exports = {
             `3. AutoSeen Thread   — ${status(threadSeen)}`,
             `4. Story React Auto  — ${status(storyData.enabled)}`,
             `5. Story React Emoji — ${storyData.emoji}`,
+            `6. Typing Indicator  — ${status(config.enableTypingIndicator)}`,
             "━━━━━━━━━━━━━━━━━",
-            "› Reply 1-5",
+            "› Reply 1-6",
           ].join("\n"),
           "fcaFeatures",
           { threadID }
@@ -547,6 +549,13 @@ module.exports = {
             "like 👍 | love ❤️ | haha 😆 | wow 😮 | sad 😢 | angry 😡 | hug 🤗",
           "storyEmojiSet"
         );
+      }
+
+      // ── 6. Toggle Typing Indicator (before message send) ───────
+      if (num === 6) {
+        config.enableTypingIndicator = !config.enableTypingIndicator;
+        saveConfig();
+        return message.reply(`✦ Typing Indicator — ${status(config.enableTypingIndicator)}`);
       }
 
       return message.reply("𝗫 Invalid selection.");
