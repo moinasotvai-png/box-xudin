@@ -880,15 +880,16 @@ async function startBot(_0x3cad9e) {
         if (_0x54729a == true) {
           _0x54729a = false;
         }
-        if (global.GoatBot.config.whiteListMode?.["enable"] == true && global.GoatBot.config.whiteListModeThread?.["enable"] == true && !global.GoatBot.config.adminBot.includes(_0xb100c2.senderID)) {
-          if (!global.GoatBot.config.whiteListMode.whiteListIds.includes(_0xb100c2.senderID) && !global.GoatBot.config.whiteListModeThread.whiteListThreadIds.includes(_0xb100c2.threadID) && !global.GoatBot.config.adminBot.includes(_0xb100c2.senderID)) {
+        const _0xb100c2SenderId = _0xb100c2.senderID || _0xb100c2.userID;
+        if (global.GoatBot.config.whiteListMode?.["enable"] == true && global.GoatBot.config.whiteListModeThread?.["enable"] == true && !global.GoatBot.config.adminBot.includes(_0xb100c2SenderId)) {
+          if (!global.GoatBot.config.whiteListMode.whiteListIds.includes(_0xb100c2SenderId) && !global.GoatBot.config.whiteListModeThread.whiteListThreadIds.includes(_0xb100c2.threadID) && !global.GoatBot.config.adminBot.includes(_0xb100c2SenderId)) {
             return;
           }
         } else {
-          if (global.GoatBot.config.whiteListMode?.["enable"] == true && !global.GoatBot.config.whiteListMode.whiteListIds.includes(_0xb100c2.senderID) && !global.GoatBot.config.adminBot.includes(_0xb100c2.senderID)) {
+          if (global.GoatBot.config.whiteListMode?.["enable"] == true && !global.GoatBot.config.whiteListMode.whiteListIds.includes(_0xb100c2SenderId) && !global.GoatBot.config.adminBot.includes(_0xb100c2SenderId)) {
             return;
           } else {
-            if (global.GoatBot.config.whiteListModeThread?.["enable"] == true && !global.GoatBot.config.whiteListModeThread.whiteListThreadIds.includes(_0xb100c2.threadID) && !global.GoatBot.config.adminBot.includes(_0xb100c2.senderID)) {
+            if (global.GoatBot.config.whiteListModeThread?.["enable"] == true && !global.GoatBot.config.whiteListModeThread.whiteListThreadIds.includes(_0xb100c2.threadID) && !global.GoatBot.config.adminBot.includes(_0xb100c2SenderId)) {
               return;
             }
           }
