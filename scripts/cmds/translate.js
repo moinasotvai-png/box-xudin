@@ -3,58 +3,55 @@ const axios = require("axios");
 module.exports = {
   config: {
     name: "translate",
-    aliases: ["tns", "tn"],
-    version: "2.0.0",
-    author: "Hridoy",
+    aliases: ["tns", "tr"],
+    version: "2.0",
+    author: "xalman",
+    countDown: 5,
     role: 0,
-    shortDescription: "Translate text (reply + direct)",
-    category: "Utility",
-    guide: 
-      "{pn} <lang> (reply message)\n" +
-      "{pn} <text> <lang>\n" +
-      "Example:\n" +
-      "tr bn (reply)\n" +
-      "tr hello bn",
-    cooldown: 3
+    shortDescription: "Translate text with language info",
+    category: "AI",
+    guide: "{pn} [text] | [target_lang] or reply with {pn} [target_lang]"
   },
 
-  onStart: async function ({ message, event, args }) {
+  onStart: async function ({ api, event, args }) {
+    const { threadID, messageID, type, messageReply } = event;
+    const API_URL = "https://xalman-apis.vercel.app/api/translate";
+
+    let textToTranslate;
+    let targetLang = "bn";
+
+    if (type === "message_reply") {
+      textToTranslate = messageReply.body;
+      if (args[0]) targetLang = args[0];
+    } else {
+      const content = args.join(" ");
+      if (!content) return api.sendMessage("╭─❍\n│ Usage: {pn} Text | Lang\n│ Reply: {pn} Lang\n╰───────────⟡", threadID, messageID);
+
+      const splitContent = content.split("|");
+      textToTranslate = splitContent[0].trim();
+      if (splitContent[1]) targetLang = splitContent[1].trim();
+    }
+
+    api.setMessageReaction("🌐", messageID, () => {}, true);
+
     try {
-      let text = "";
-      let lang = "";
+      const res = await axios.get(`${API_URL}?text=${encodeURIComponent(textToTranslate)}&to=${targetLang}`);
 
-      // 🔥 CASE 1: Reply system
-      if (event.messageReply && event.messageReply.body) {
-        text = event.messageReply.body;
-        lang = args[0];
-
-        if (!lang)
-          return message.reply("❌ Language dao (bn/en/hi)");
+      if (res.data.status === true) {
+        const { translated, from_lang, to_lang } = res.data;
+        
+        api.setMessageReaction("✅", messageID, () => {}, true);
+        
+        return api.sendMessage(
+          `${translated}\n\n━━━━━━━━━━━━━━━━━━\n🌐 ${from_lang.toUpperCase()} ➔ ${to_lang.toUpperCase()}`, 
+          threadID, messageID
+        );
+      } else {
+        throw new Error();
       }
-
-      // 🔥 CASE 2: Direct system
-      else {
-        if (args.length < 2)
-          return message.reply("❌ Use:\ntr hello bn");
-
-        lang = args[args.length - 1]; // last word = lang
-        text = args.slice(0, -1).join(" "); // baki gula text
-      }
-
-      // 🔥 Translate API
-      const res = await axios.get(
-        `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=${lang}&dt=t&q=${encodeURIComponent(text)}`
-      );
-
-      const translated = res.data[0].map(i => i[0]).join("");
-
-      return message.reply(
-        `🌐 ${lang.toUpperCase()} Translation:\n\n${translated}`
-      );
-
-    } catch (err) {
-      console.error(err);
-      return message.reply("⚠️ Translate fail hoise... abar try koro 😅");
+    } catch (error) {
+      api.setMessageReaction("❌", messageID, () => {}, true);
+      return api.sendMessage("✕ Translation failed!", threadID, messageID);
     }
   }
 };

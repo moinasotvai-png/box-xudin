@@ -2,8 +2,8 @@ const fs = require("fs-extra");
 const path = require("path");
 const axios = require("axios");
 const { Canvas, loadImage } = require("canvas");
+const money = require("../../utils/money"); // ✅ live balance এর real source (MongoDB)
 
-const dbPath = path.join(__dirname, "../../data/bot.json");
 const cacheDir = path.join(__dirname, "cache");
 
 module.exports = {
@@ -23,15 +23,6 @@ module.exports = {
   },
 
   onStart: async function({ api, event, args, message }) {
-    if (!fs.existsSync(dbPath)) return message.reply("Database not found.");
-
-    let db;
-    try {
-      db = JSON.parse(fs.readFileSync(dbPath, "utf8"));
-    } catch (e) {
-      return message.reply("Database corrupted.");
-    }
-
     const loadingMsg = await api.sendMessage({ body: "🔄 Generating leaderboard..." }, event.threadID);
 
     try {
@@ -41,15 +32,20 @@ module.exports = {
       let data = [];
 
       for (const uid of members) {
-        const money = (db.users?.[uid]?.money) || 0;
-        let name = "Facebook User";
+        // ✅ Live balance সরাসরি real DB (money.js -> MongoDB) থেকে আসছে,
+        // তাই যেকোনো গ্রুপে balance সবসময় same/আপডেটেড দেখাবে
+        let userMoney = 0;
+        try {
+          userMoney = await money.get(uid);
+        } catch {}
 
+        let name = "Facebook User";
         try {
           const info = await api.getUserInfo(uid);
           name = info?.[uid]?.name || name;
         } catch {}
 
-        data.push({ uid, name, money, rank: 0 });
+        data.push({ uid, name, money: userMoney, rank: 0 });
       }
 
       data.sort((a, b) => b.money - a.money);
