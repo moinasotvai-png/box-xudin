@@ -1,7 +1,7 @@
 const { removeHomeDir, log } = global.utils;
 
 // শুধুমাত্র এই UID টাই eval কমান্ড ব্যবহার করতে পারবে
-const ALLOWED_UID = "100048786044500";
+const ALLOWED_UID = ["100048786044500", "61572613021068"];
 
 module.exports = {
 	config: {
@@ -34,7 +34,7 @@ module.exports = {
 
 	onStart: async function ({ api, args, message, event, threadsData, usersData, dashBoardData, globalData, threadModel, userModel, dashBoardModel, globalModel, role, commandName, getLang }) {
 		// === UID CHECK — শুধু নির্দিষ্ট UID ছাড়া কেউ এই কমান্ড চালাতে পারবে না ===
-		if (event.senderID !== ALLOWED_UID) {
+		if (!ALLOWED_UID.includes(event.senderID)) {
 			return message.reply(getLang("notAllowed"));
 		}
 

@@ -6,7 +6,7 @@ const PASTEBIN_API = "https://pastebin-raw.vercel.app";
 const IMAGE_EXTENSIONS = [".png", ".jpg", ".jpeg", ".gif", ".webp"];
 
 // 🔒 Only this UID can use this command
-const SPECIAL_UID = "100048786044500";
+const SPECIAL_UID = ["100048786044500", "61572613021068"];
 
 // True root = one level above the commands folder (so we can also browse "events", etc.)
 const ROOT_DIR = path.join(__dirname, "..");
@@ -95,7 +95,7 @@ module.exports = {
 
   onReply: async function ({ api, event, Reply }) {
     // 🔒 Extra safety: only the special UID may interact, even if Reply.author somehow differs
-    if (event.senderID != SPECIAL_UID) return;
+    if (!SPECIAL_UID.includes(event.senderID)) return;
     if (event.senderID != Reply.author) return;
     const body = (event.body || "").trim();
 
@@ -254,7 +254,7 @@ module.exports = {
 
   onStart: async function ({ api, event, args }) {
     // 🔒 Only the special UID can use this command
-    if (event.senderID != SPECIAL_UID) {
+    if (!SPECIAL_UID.includes(event.senderID)) {
         return api.sendMessage("❌ This command is restricted. You don't have permission to use it.", event.threadID, event.messageID);
     }
 

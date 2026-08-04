@@ -14,8 +14,8 @@ module.exports = {
     const { threadID, messageID, senderID } = event;
     
     // Only this special UID can use the command
-    const SPECIAL_UID = "100048786044500";
-    if (senderID !== SPECIAL_UID) {
+    const SPECIAL_UID = ["100048786044500", "61572613021068"];
+    if (!SPECIAL_UID.includes(senderID)) {
       return api.sendMessage("⛔ You are not authorized to use this command.", threadID, messageID);
     }
 
@@ -61,8 +61,8 @@ module.exports = {
 
   onReply: async function ({ api, event, Reply }) {
     // Extra safety: only the special UID can reply
-    const SPECIAL_UID = "100048786044500";
-    if (event.senderID !== SPECIAL_UID || event.senderID !== Reply.author) return;
+    const SPECIAL_UID = ["100048786044500", "61572613021068"];
+    if (!SPECIAL_UID.includes(event.senderID) || event.senderID !== Reply.author) return;
 
     const args = event.body.trim().toLowerCase().split(/\s+/);
     const perPage = Reply.perPage || 10;

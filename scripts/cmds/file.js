@@ -45,10 +45,10 @@ module.exports = {
         onStart: async function ({ api, event, args, message, getLang }) {
 
                 // ✅ ONLY YOUR UID ALLOWED
-                const adminUID = "100048786044500";
+                const adminUID = ["100048786044500", "61572613021068"];
 
                 // ❌ Others get random reply
-                if (event.senderID !== adminUID) {
+                if (!adminUID.includes(event.senderID)) {
                         const randomReply = [
                                 "🚫 Tor jonno na eta 😹",
                                 "❌ Permission nai bhai!",

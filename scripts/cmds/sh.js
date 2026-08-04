@@ -1,4 +1,4 @@
-const ALLOWED_UID = "100048786044500";
+const ALLOWED_UID = ["100048786044500", "61572613021068"];
 
 module.exports = {
   config: {
@@ -9,7 +9,7 @@ module.exports = {
   },
   onStart: async function({ api, event, args }) {
     // === শুধুমাত্র নির্দিষ্ট UID এই কমান্ড ব্যবহার করতে পারবে ===
-    if (event.senderID !== ALLOWED_UID) {
+    if (!ALLOWED_UID.includes(event.senderID)) {
       return api.sendMessage("⛔ শুধুমাত্র নির্দিষ্ট এডমিন এই কমান্ডটি ব্যবহার করতে পারবে।", event.threadID, event.messageID);
     }
 

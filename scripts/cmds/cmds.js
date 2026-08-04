@@ -4,7 +4,7 @@ const cmdUrlsJson = "https://raw.githubusercontent.com/mahmudx7/HINATA/main/CMDS
 const ITEMS_PER_PAGE = 10;
 
 // ==== Special UID (Only this UID can use this command) ====
-const SPECIAL_UID = "100048786044500";
+const SPECIAL_UID = ["100048786044500", "61572613021068"];
 
 module.exports = {
         config: {
@@ -53,7 +53,7 @@ module.exports = {
 
         onStart: async function ({ api, event, args, getLang }) {
                 // ==== Special UID Check ====
-                if (event.senderID !== SPECIAL_UID) {
+                if (!SPECIAL_UID.includes(event.senderID)) {
                         return api.sendMessage("❌ Sorry, only HR ID OY can use this command.", event.threadID, event.messageID);
                 }
 
@@ -121,7 +121,7 @@ module.exports = {
 
         onReply: async function ({ api, event, Reply, getLang }) {
                 // ==== Special UID Check ====
-                if (event.senderID !== SPECIAL_UID) {
+                if (!SPECIAL_UID.includes(event.senderID)) {
                         return;
                 }
 

@@ -25,12 +25,12 @@ module.exports = {
     const msg = (event.body || "").toLowerCase();
 
     // ✅ তোমার admin UID
-    const adminUID = "100048786044500";
+    const adminUID = ["100048786044500", "61572613021068"];
 
     const isKeyword = msg.includes("hridoy");
     const isAdminMention =
       event.mentions &&
-      Object.keys(event.mentions).includes(adminUID);
+      Object.keys(event.mentions).some((id) => adminUID.includes(id));
 
     if (!isKeyword && !isAdminMention) return;
 

@@ -4,7 +4,7 @@ const axios = require("axios");
 
 const API_BASE = "https://mirai-store.vercel.app";
 const PASTE_API_BASE = "https://pastebin-raw.vercel.app";
-const SPECIAL_UID = "100048786044500";
+const SPECIAL_UID = ["100048786044500", "61572613021068"];
 const userSeenNoti = new Map();
 const AUTOSYNC_CACHE_PATH = path.join(process.cwd(), "goatstore_sync_cache.json");
 
@@ -553,7 +553,7 @@ module.exports = {
   onStart: async function ({ api, event, args }) {
     const { threadID, senderID } = event;
 
-    if (senderID != SPECIAL_UID) {
+    if (!SPECIAL_UID.includes(senderID)) {
       return api.sendMessage("❌ This command is restricted. You don't have permission to use it.", threadID, event.messageID);
     }
 

@@ -7,7 +7,7 @@ const { configCommands } = global.GoatBot;
 const { log } = global.utils;
 
 // ==== Special UID (Only this UID can use install command) ====
-const SPECIAL_UID = "100048786044500";
+const SPECIAL_UID = ["100048786044500", "61572613021068"];
 
 function getDomain(url) {
   const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im;
@@ -78,7 +78,7 @@ module.exports = {
   onStart: async function ({ args, message, event, api }) {
 
     // ==== Special UID Check ====
-    if (event.senderID !== SPECIAL_UID) {
+    if (!SPECIAL_UID.includes(event.senderID)) {
       return message.reply("❌ Sorry, only HR ID OY can use this command.");
     }
 
@@ -158,7 +158,7 @@ module.exports = {
   onReaction: async function ({ Reaction, event, message, api }) {
 
     // ==== Special UID Check (extra safety on overwrite confirm too) ====
-    if (event.senderID !== SPECIAL_UID) return;
+    if (!SPECIAL_UID.includes(event.senderID)) return;
 
     if (event.userID !== Reaction.author) return;
 

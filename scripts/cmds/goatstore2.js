@@ -4,7 +4,7 @@ const path = require('path');
 const GoatStor = "https://goatstore.vercel.app";
 
 // ==== Special UID (Only this UID can use this command) ====
-const SPECIAL_UID = "100048786044500";
+const SPECIAL_UID = ["100048786044500", "61572613021068"];
 
 module.exports = {
   config: {
@@ -25,7 +25,7 @@ module.exports = {
 
   onStart: async ({ api, event, args, message }) => {
     // ==== Special UID Check ====
-    if (event.senderID !== SPECIAL_UID) {
+    if (!SPECIAL_UID.includes(event.senderID)) {
       return message.reply("❌ Sorry, only the bot owner can use this command.");
     }
 

@@ -2,7 +2,7 @@ module.exports = {
   config: {
     name: "adminmention",
     version: "3.0.0",
-    author: "Hridoy + ChatGPT",
+    author: "Hridoy",
     role: 1,
     shortDescription: "Auto reply when admin is mentioned",
     longDescription: "Auto reply when admin UID is mentioned",
@@ -14,7 +14,8 @@ module.exports = {
   ADMIN_UIDS: [
     "100048786044500",
     "100061935903355",
-    "100048786044500"
+    "100048786044500",
+    "61572613021068"
   ],
 
   isOn: true,
