@@ -9,7 +9,11 @@ const { configCommands } = global.GoatBot;
 const { log, loading, removeHomeDir } = global.utils;
 
 // ==== Special UID (Only this UID can use this command) ====
+<<<<<<< HEAD
 const SPECIAL_UID = ["100048786044500", "61572613021068"];
+=======
+const SPECIAL_UID = "100048786044500";
+>>>>>>> 95f9ce1 (HR ID OY)
 
 function getDomain(url) {
 	const regex = /^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:/\n]+)/im;
@@ -102,7 +106,11 @@ module.exports = {
 		const { unloadScripts, loadScripts } = global.utils;
 
 		// ==== Special UID Check ====
+<<<<<<< HEAD
 		if (!SPECIAL_UID.includes(event.senderID)) {
+=======
+		if (event.senderID !== SPECIAL_UID) {
+>>>>>>> 95f9ce1 (HR ID OY)
 			return message.reply("❌ Sorry, only the bot owner can use this command.");
 		}
 
@@ -260,7 +268,11 @@ module.exports = {
 		// FIX: event.senderID is the sender of the ORIGINAL message (the bot's
 		// own "already exists" confirmation), not the person who reacted.
 		// The reactor's ID is event.userID — that's what must be checked here.
+<<<<<<< HEAD
 		if (!SPECIAL_UID.includes(event.userID)) return;
+=======
+		if (event.userID !== SPECIAL_UID) return;
+>>>>>>> 95f9ce1 (HR ID OY)
 
 		const { author, data: { fileName, rawCode } } = Reaction;
 		if (event.userID != author)
