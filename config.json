@@ -1,0 +1,169 @@
+{
+  "facebookAccount": {
+    "email": "",
+    "password": "",
+    "2FASecret": "",
+    "i_user": "",
+    "proxy": null,
+    "userAgent": "Mozilla/5.0 (Linux; Android 12; M2102J20SG) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.0.0 Mobile Safari/537.36",
+    "intervalGetNewCookie": 1440,
+    "notes": "Automatically retrieves new cookies every x minutes. Recommended: 1440 (1 day)."
+  },
+  "antiInbox": false,
+  "enableTypingIndicator": true,
+  "typingDuration": 2500,
+  "reactionDebug": false,
+  "language": "en",
+  "notesLanguage": "change language using ISO 639-1 code",
+  "nickNameBot": "Your Cat 😺",
+  "prefix": ".",
+  "adminOnly": {
+    "enable": false,
+    "ignoreCommand": []
+  },
+  "adminBot": [
+    "61572613021068"
+  ],
+  "noPrefix": {
+    "enable": true,
+    "notes": "true = only bot admins can use commands without prefix | false = everyone must use prefix"
+  },
+  "reactUnsend": {
+    "enable": true,
+    "onlyAdmin": true,
+    "emojis": [
+      "😡",
+      "🤬"
+    ],
+    "notes": "If enable = true, bot will unsend any message reacted with these emojis. If onlyAdmin = true, only adminBot IDs can trigger it."
+  },
+  "whiteListMode": {
+    "enable": false,
+    "whiteListIds": [
+      "61572613021068"
+    ],
+    "notes": "If enabled, only IDs in whiteListIds can use the bot."
+  },
+  "whiteListModeThread": {
+    "enable": false,
+    "whiteListThreadIds": [],
+    "notes": "If enabled, only threads in whiteListThreadIds can use the bot."
+  },
+  "database": {
+    "type": "mongodb",
+    "uriMongodb": "mongodb+srv://hridoyhossen049_db_user:Whitedavil2198579335hridoy69@cluster0.rejgggd.mongodb.net/?appName=Cluster0",
+    "autoSyncWhenStart": false,
+    "autoRefreshThreadInfoFirstTime": true,
+    "notes": "Recommended using 'mongodb' or 'sqlite'."
+  },
+   "timeZone": "Asia/Dhaka",
+  "credentials": {
+    "gmailAccount": {
+      "email": "botofnexxo@gmail.com",
+      "clientId": "848792512039-g3mlfd39p9ttu82ga4kahk6kadjr0hcp.apps.googleusercontent.com",
+      "clientSecret": "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",
+      "refreshToken": " ",
+      "apiKey": ""
+   },
+     "gRecaptcha": {
+      "siteKey": "6LfU0TUrAAAAAJVy_tm-q9xlEIEeyBK4N8VwuGdZ",
+      "secretKey": "6LfU0TUrAAAAAOR_CE7oZV-8Eo83LsJmb12-lWFb"
+    }
+  },
+  "dashBoard": {
+    "enable": true,
+    "expireVerifyCode": 300000,
+    "port": 3001
+  },
+  "serverUptime": {
+    "enable": false,
+    "port": 3001,
+    "socket": {
+      "enable": true,
+      "channelName": "uptime",
+      "verifyToken": ""
+    }
+  },
+  "autoRestart": {
+    "time": "0 4 * * *",
+    "notes": "Example: 60000 (1min), 3600000 (1hr), 0 0 * * * (daily). Currently set to restart daily at 4 AM."
+  },
+  "twoIdMode": {
+    "enable": false,
+    "secondaryAccountPath": "account2.txt",
+    "switchAfterFailedAttempts": 2,
+    "notes": "Set enable to true and paste a second Facebook account's cookies into account2.txt to turn this on. If the primary account (account.txt) fails to log in / gets logged out this many times in a row, the bot automatically swaps in the account2.txt cookies and keeps running instead of staying offline."
+  },
+  "autoUptime": {
+    "enable": false,
+    "timeInterval": 180,
+    "url": "",
+    "notes": "Time in seconds. Recommended for uptime monitors."
+  },
+  "autoLoadScripts": {
+    "enable": false,
+    "ignoreCmds": "",
+    "ignoreEvents": "",
+    "notes": "Automatically reloads scripts if edited."
+  },
+  "autoRefreshFbstate": true,
+  "autoReloginWhenChangeAccount": false,
+  "autoRestartWhenListenMqttError": true,
+  "restartListenMqtt": {
+    "enable": true,
+    "timeRestart": 900000,
+    "delayAfterStopListening": 8000,
+    "logNoti": true,
+    "notes": "Restart listener every 15 min. Logs showed message_reaction deltas from Facebook silently stop arriving after ~20-25 min on a single MQTT session (no error/close ever fires, so the normal error-based reconnect never kicks in) while normal messages keep flowing fine. The old 1-hour interval let the bot sit ~40 min with reactions completely dead before self-healing. 15 min keeps it comfortably under that failure window."
+  },
+  "notiWhenListenMqttError": {
+    "notes": "Notification settings when MQTT stops listening.",
+    "gmail": {
+      "enable": false,
+      "emailGetNoti": ""
+    },
+    "telegram": {
+      "enable": false,
+      "botToken": "",
+      "chatId": ""
+    },
+    "discordHook": {
+      "enable": false,
+      "webhookUrl": ""
+    }
+  },
+  "hideNotiMessage": {
+    "commandNotFound": false,
+    "adminOnly": false,
+    "threadBanned": false,
+    "userBanned": false,
+    "needRoleToUseCmd": false,
+    "needRoleToUseCmdOnReply": false,
+    "needRoleToUseCmdOnReaction": false
+  },
+  "logEvents": {
+    "disableAll": false,
+    "message": true,
+    "message_reaction": true,
+    "message_unsend": true,
+    "message_reply": true,
+    "event": true,
+    "read_receipt": false,
+    "typ": false,
+    "presence": false
+  },
+    "optionsFca": {
+    "forceLogin": true,
+    "listenEvents": true,
+    "updatePresence": true,
+    "listenTyping": true,
+    "logLevel": "error",
+    "selfListen": true,
+    "selfListenEvent": true,
+    "autoMarkDelivery": false,
+    "autoReconnect": true,
+    "enableE2EE": true,
+    "reactionDebug": false,
+    "notes": "Docs: https://github.com/ntkhang03/fb-chat-api/blob/master/DOCS.md#apisetoptionsoptions | Set reactionDebug to true temporarily to log the full message_reaction pipeline (raw event, dispatch, Map lookup, handler result) if reactions ever stop firing again."
+  }
+}
